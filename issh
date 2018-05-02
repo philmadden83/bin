@@ -1,0 +1,19 @@
+#!/bin/bash
+
+####################################################################################
+# Simple script to enable SSH into an AWS EC2 instance given the instance ID.
+#
+# Requirements
+# - AWS cli
+# - JQ
+#
+# SSH config entry similar to the below
+#  HOST ip-10-*
+#  StrictHostKeyChecking No
+#  ProxyCommand ssh -q vpc -W %h.ec2.internal:22
+#
+# Author: Phil Madden
+#
+####################################################################################
+
+ssh `aws ec2 describe-instances --instance-ids=$1 | jq -r '.Reservations[].Instances[].PrivateDnsName' | sed -e s/\.ec2\.internal//g`

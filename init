@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+ln -snf `pwd`/issh /usr/local/bin/issh
